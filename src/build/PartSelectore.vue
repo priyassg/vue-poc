@@ -22,15 +22,13 @@ export default {
   props: {
     parts: {
       required: true,
-      type: Array
+      type: Array,
     },
     position: {
       required: true,
       type: String,
-      validator: value => {
-        return ["top", "left", "center", "right", "bottom"].includes(value);
-      }
-    }
+      validator: value => ['top', 'left', 'center', 'right', 'bottom'].includes(value),
+    },
   },
   data() {
     return { selectedPartIndex: 0 };
@@ -39,12 +37,12 @@ export default {
     this.emitSelectedPart();
   },
   updated() {
-      this.emitSelectedPart();
+    this.emitSelectedPart();
   },
   computed: {
     selectedPart() {
       return this.parts[this.selectedPartIndex];
-    }
+    },
   },
   methods: {
     partClicked() {
@@ -53,32 +51,32 @@ export default {
         params: {
           partType: this.selectedPart.type,
           id: this.selectedPart.id,
-        }
+        },
       });
     },
     emitSelectedPart() {
-      this.$emit("partSelected", this.selectedPart);
+      this.$emit('partSelected', this.selectedPart);
     },
     selectNextPart() {
       this.selectedPartIndex = getNextValidIndex(
         this.selectedPartIndex,
-        this.parts.length
+        this.parts.length,
       );
       this.emitSelectedPart();
     },
     selectPreviousPart() {
       this.selectedPartIndex = getPreviousValidIndex(
         this.selectedPartIndex,
-        this.parts.length
+        this.parts.length,
       );
-      this.$emit("partSelected2");
+      this.$emit('partSelected2');
       this.emitSelectedPart();
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .part {
   position: relative;
   width: 165px;

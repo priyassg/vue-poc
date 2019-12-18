@@ -55,16 +55,16 @@
 </template>
 
 <script>
-import PartSelector from "./PartSelectore";
-import CollabsibleComponent from '../shared/CollabsibleComponent';
+import PartSelector from './PartSelectore.vue';
+import CollabsibleComponent from '../shared/CollabsibleComponent.vue';
 
 export default {
-  name: "RobotBuilder",
+  name: 'RobotBuilder',
   components: { PartSelector, CollabsibleComponent },
   created() {
     this.$store.dispatch('robots/getParts');
   },
-  beforeRouteLeave (to, from, next) {
+  beforeRouteLeave(to, from, next) {
     next(!this.inProgress);
   },
   data() {
@@ -74,32 +74,31 @@ export default {
         torsos: {},
         bases: {},
         leftArm: {},
-        rightArm: {}
+        rightArm: {},
       },
       inProgress: false,
     };
   },
   computed: {
-    availableParts(){
+    availableParts() {
       return this.$store.state.robots.parts;
     },
-    cart(){
+    cart() {
       return this.$store.state.robots.cart;
-    }
+    },
   },
   methods: {
     addToCart() {
       const rbt = this.selectedRobot;
-      const cost =
-        rbt.heads.cost +
-        rbt.bases.cost +
-        rbt.torsos.cost +
-        rbt.leftArm.cost +
-        rbt.rightArm.cost;
-        this.$store.dispatch('robots/addRobotToCart', Object.assign({}, rbt, { cost }))
-          .then(() => this.$router.push('/cart'));
-    }
-  }
+      const cost = rbt.heads.cost
+        + rbt.bases.cost
+        + rbt.torsos.cost
+        + rbt.leftArm.cost
+        + rbt.rightArm.cost;
+      this.$store.dispatch('robots/addRobotToCart', Object.assign({}, rbt, { cost }))
+        .then(() => this.$router.push('/cart'));
+    },
+  },
 };
 </script>
 
