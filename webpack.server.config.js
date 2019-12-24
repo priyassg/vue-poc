@@ -18,13 +18,17 @@ const webpackConfig = merge(baseWebpackConfig, {
   externals: Object.keys(require('./package.json').dependencies),
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': 'production',
+      PRODUCTION: JSON.stringify(false),
+      // 'process.env': 'production',
     }),
   ],
   optimization: {
-    minimizer: [
-      new UglifyJsPlugin(),
-    ],
+    minimize: false,
+    // minimizer: [
+    //   new UglifyJsPlugin({
+    //     sourceMap: true,
+    //   }),
+    // ],
   },
 });
 module.exports = webpackConfig;

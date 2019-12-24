@@ -14,55 +14,58 @@ import ShoppingCart from '../cart/ShoppingCart.vue';
 
 Vue.use(Router);
 
-export default new Router({
-  mode: 'history',
-  routes: [{
-    path: '/',
-    name: 'Home',
-    components: {
-      default: HomePage,
-      sidebar: HomeSideBar,
-    },
-  }, {
-    path: '/build',
-    name: 'Build',
-    components: {
-      default: RobotBuilder,
-      sidebar: BuildSideBar,
-    },
-  }, {
-    path: '/parts/browse',
-    name: 'BrowseParts',
-    component: BrowseParts,
-    children: [{
-      path: 'heads',
-      name: 'BrowseHeads',
-      component: BrowseHeads,
+// eslint-disable-next-line import/prefer-default-export
+export function createRouter() {
+  return new Router({
+    mode: 'history',
+    routes: [{
+      path: '/',
+      name: 'Home',
+      components: {
+        default: HomePage,
+        sidebar: HomeSideBar,
+      },
     }, {
-      path: 'arms',
-      name: 'BrowseArms',
-      component: BrowseArms,
+      path: '/build',
+      name: 'Build',
+      components: {
+        default: RobotBuilder,
+        sidebar: BuildSideBar,
+      },
     }, {
-      path: 'torsos',
-      name: 'BrowseTorsos',
-      component: BrowseTorsos,
+      path: '/parts/browse',
+      name: 'BrowseParts',
+      component: BrowseParts,
+      children: [{
+        path: 'heads',
+        name: 'BrowseHeads',
+        component: BrowseHeads,
+      }, {
+        path: 'arms',
+        name: 'BrowseArms',
+        component: BrowseArms,
+      }, {
+        path: 'torsos',
+        name: 'BrowseTorsos',
+        component: BrowseTorsos,
+      }, {
+        path: 'bases',
+        name: 'BrowseBases',
+        component: BrowseBases,
+      }],
     }, {
-      path: 'bases',
-      name: 'BrowseBases',
-      component: BrowseBases,
+      path: '/parts/:partType/:id',
+      name: 'Parts',
+      component: PartsInfo,
+      props: true,
+      beforeEnter(to, from, next) {
+        const isValid = Number.isInteger(Number(to.params.id));
+        next(isValid);
+      },
+    }, {
+      name: 'Cart',
+      path: '/cart',
+      component: ShoppingCart,
     }],
-  }, {
-    path: '/parts/:partType/:id',
-    name: 'Parts',
-    component: PartsInfo,
-    props: true,
-    beforeEnter(to, from, next) {
-      const isValid = Number.isInteger(Number(to.params.id));
-      next(isValid);
-    },
-  }, {
-    name: 'Cart',
-    path: '/cart',
-    component: ShoppingCart,
-  }],
-});
+  });
+}

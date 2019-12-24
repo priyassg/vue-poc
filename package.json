@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "start-server": "node server.js",
-    "start": "build-client && build-server && start-server",
+    "start": "npm run build-client && npm run build-server && npm run start-server",
     "build-client": "webpack",
     "build-server": "webpack --config webpack.server.config.js"
   },

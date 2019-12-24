@@ -1,24 +1,18 @@
 import Vue from 'vue';
 import App from './App.vue';
-import router from './router/index';
+import { createRouter } from './router/index';
 import store from './store/index';
 
 Vue.config.productionTip = false;
 
-function createApp() {
+// eslint-disable-next-line import/prefer-default-export
+export function createApp() {
+  const router = createRouter();
   const app = new Vue({
     render: h => h(App),
     store,
     router,
   });
 
-  return app;
+  return { app, router };
 }
-
-// const app = new Vue({
-//   render: h => h(App),
-//   store,
-//   router,
-// }).$mount('#app');
-
-export default { createApp };

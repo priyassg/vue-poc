@@ -1,7 +1,6 @@
-import createApp from './main';
+import { createApp } from './main';
 
-export default (context) => {
-  console.log(context);
+export default context => new Promise((reject, resolve) => {
   const { app } = createApp();
-  return app;
-};
+  resolve(app);
+});
